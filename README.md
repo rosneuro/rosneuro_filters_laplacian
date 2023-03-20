@@ -1,6 +1,6 @@
-# ROSNeuro Laplacian filter
+# ROS-Neuro Laplacian filter
 
-This ROSNeuro filter plugin implements a Laplacian derivation filter.
+This ROS-Neuro filter plugin implements a Laplacian derivation filter.
 
 ## Algorithm:
 The filter applies the Laplacian derivation to the data. For each provided sample and for each channel, it substracts the averaged value computed across the neighbour channels. Neighbours are identified with a cross policy:
