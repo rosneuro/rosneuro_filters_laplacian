@@ -3,6 +3,7 @@
 
 #include <regex>
 #include <Eigen/Dense>
+#include <gtest/gtest_prod.h>
 #include <rosneuro_filters/Filter.hpp>
 
 namespace rosneuro {
@@ -35,6 +36,23 @@ class Laplacian : public Filter<T> {
 		unsigned int nchannels_;
 		DynamicMatrix<int> layout_;
 		DynamicMatrix<T> mask_;
+
+        FRIEND_TEST(LaplacianTestSuite, Constructor);
+        FRIEND_TEST(LaplacianTestSuite, Configure);
+        FRIEND_TEST(LaplacianTestSuite, SetLayoutDynamicMatrix);
+        FRIEND_TEST(LaplacianTestSuite, SetLayoutString);
+        FRIEND_TEST(LaplacianTestSuite, SetLayoutStringWithDuplicates);
+        FRIEND_TEST(LaplacianTestSuite, SetMask);
+        FRIEND_TEST(LaplacianTestSuite, CreateMask);
+        FRIEND_TEST(LaplacianTestSuite, FindChannel);
+        FRIEND_TEST(LaplacianTestSuite, GetNeighboursAllSides);
+        FRIEND_TEST(LaplacianTestSuite, GetNeighboursNoNeighbors);
+        FRIEND_TEST(LaplacianTestSuite, GetNeighboursTopEdge);
+        FRIEND_TEST(LaplacianTestSuite, ApplyWithMaskSet);
+        FRIEND_TEST(LaplacianTestSuite, ApplyWithoutMaskSet);
+        FRIEND_TEST(LaplacianTestSuite, LoadLayoutValid);
+        FRIEND_TEST(LaplacianTestSuite, LoadLayoutInvalid);
+        FRIEND_TEST(LaplacianTestSuite, LoadLayoutEmpty);
 };
 
 template<typename T>
