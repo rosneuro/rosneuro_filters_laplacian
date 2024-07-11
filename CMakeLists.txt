@@ -16,14 +16,15 @@ find_package(catkin REQUIRED COMPONENTS
 			 rosneuro_filters)
 
 find_package(Eigen3 REQUIRED)
-
+find_package(GTest REQUIRED)
 find_package(PkgConfig)
 
 SET(CMAKE_BUILD_TYPE RelWithDebInfo)
 
 include_directories(${catkin_INCLUDE_DIRS} 
                     ${EIGEN3_INCLUDE_DIRS}
-					include)
+					include
+					include/${PROJECT_NAME}/_)
 
 ##############################################################################
 # Define package
@@ -47,6 +48,11 @@ catkin_package(
 # Build
 ##############################################################################
 
+catkin_add_gtest(TestLaplacian test/TestLaplacian.cpp)
+target_link_libraries(TestLaplacian ${GTEST_BOTH_LIBRARIES} pthread gmock ${Eigen3_LIBRARIES})
+target_link_libraries(TestLaplacian ${PROJECT_NAME} ${catkin_LIBRARIES})
+include_directories(${GTEST_INCLUDE_DIRS} gmock pthread include include/${PROJECT_NAME}/)
+
 add_definitions(${EIGEN3_DEFINITIONS})
 
 ## Plugin
@@ -61,10 +67,10 @@ target_link_libraries(${PROJECT_NAME} ${Eigen3_LIBRARIES}
 ## Executables ##
 #################
 
-add_executable(laplacian_simloop test/laplacian_simloop.cpp)
+add_executable(laplacian_simloop example/laplacian_simloop.cpp)
 target_link_libraries(laplacian_simloop ${PROJECT_NAME} ${catkin_LIBRARIES}) 
 
-add_executable(laplacian_simloop_config test/laplacian_simloop_config.cpp)
+add_executable(laplacian_simloop_config example/laplacian_simloop_config.cpp)
 target_link_libraries(laplacian_simloop_config ${PROJECT_NAME} ${catkin_LIBRARIES}) 
 
 
